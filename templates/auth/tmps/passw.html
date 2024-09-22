@@ -1,0 +1,23 @@
+{% include 'header.html' %}
+<div class="flex items-center justify-center min-h-screen bg-gray-100">
+    <div class="px-8 py-6 mt-4 text-left bg-white shadow-lg">
+        <h3 class="text-2xl font-bold text-center">Придумайте пароль</h3>
+        <div class="mt-4 text-center">
+            <form action="/passw_action" method="POST" class="max-w-md mx-auto">
+                <div>
+                    <label for="passw_one" class="block">Пароль</label>
+                    <input name="passw_one" type="password" placeholder="Введите пароль" id="passw_one" class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600" required>
+                </div>
+                <div class="mt-4">
+                    <label for="passw_two" class="block">Повторите пароль</label>
+                    <input name="passw_two" type="password" placeholder="Повторите пароль" id="passw_two" class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600" required>
+                </div>
+                {% include 'auth/message.html' %}
+                <div class="flex items-center justify-center mt-4 mb-4">
+                    <button type="submit" class="px-6 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50">Создать аккаунт</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% include 'footer.html' %}

@@ -1,0 +1,25 @@
+{% include 'header.html' %}
+<div class="flex items-center justify-center min-h-screen bg-gray-100">
+    <div class="px-8 py-6 mt-4 text-left bg-white shadow-lg">
+        <h3 class="text-2xl font-bold text-center">Активируйте аккаунт</h3>
+        <div class="text-sm mt-4 text-center">
+            <p>Код отправлен на {{email}}<br><a href="/reg" class="font-medium text-blue-600 hover:underline">Поменять email</a></p>
+        </div>
+        <form action="/code_action" method="POST">
+            <div class="mt-4">
+                <div>
+                    <label class="block" for="email">Код</label>
+                    <input type="text" name="code" class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600">
+                </div>
+                {% include 'auth/message.html' %}
+                <div class="flex items-center justify-center mt-4 mb-4">
+                    <button class="px-6 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50">Подтвердить</button>
+                </div>
+                <div class="text-sm justify-center flex">
+                    <a href="/login" class="font-medium text-blue-600 hover:underline">Уже есть аккаунт?</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% include 'footer.html' %}

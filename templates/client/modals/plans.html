@@ -1,0 +1,125 @@
+<!-- Тарифное модальное окно -->
+<div id="tariffModal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-50 overflow-y-auto h-full w-full" onclick="closeTariffModal(event)">
+    <div class="relative top-1/2 transform -translate-y-1/2 mx-auto p-5 border w-full max-w-md shadow-lg rounded-md bg-white text-center" onclick="event.stopPropagation()">
+        <div class="mt-2 flex justify-center gap-4 mb-3">
+            <button id="btn-start" class="tariff-tab active" onclick="switchTariff('start')">Старт</button>
+            <button id="btn-standard" class="tariff-tab" onclick="switchTariff('standard')">Стандарт</button>
+            <button id="btn-pro" class="tariff-tab" onclick="switchTariff('pro')">Профи</button>
+        </div>
+        <hr class="my-4">
+        <div id="tariff-start" class="tariff-info">
+            <ul class="list-disc list-inside text-sm space-y-1">
+                <li>Обновление: ежедневно в 12:00 мск</li>
+                <li>Раскрытие: 150р</li>
+                <li>Депозит: от 500р</li>
+            </ul>
+        </div>
+        <div id="tariff-standard" class="tariff-info hidden">
+            <ul class="list-disc list-inside text-sm space-y-1">
+                <li>Обновление: каждые 3 часа</li>
+                <li>Раскрытие: 300р</li>
+                <li>Депозит: от 6000р</li>
+            </ul>
+        </div>
+        <div id="tariff-pro" class="tariff-info hidden">
+            <ul class="list-disc list-inside text-sm space-y-1">
+                <li>Обновление: каждый час</li>
+                <li>Раскрытие: 600р</li>
+                <li>Депозит: от 30000р</li>
+            </ul>
+        </div>
+        <hr class="my-4">
+        <div class="mt-4 flex flex-col space-y-2">
+            <button class="w-full py-1 border border-gray-300 text-gray-600 hover:text-gray-800 rounded transition duration-150 ease-in-out" onclick="openRequisitesModal()">Реквизиты</button>
+            <a href="/user_accept" target="_blank"><button class="w-full py-1 border border-gray-300 text-gray-600 hover:text-gray-800 rounded transition duration-150 ease-in-out">Пользовательское соглашение</button></a>
+            <a href="/pers_data" target="_blank"><button class="w-full py-1 border border-gray-300 text-gray-600 hover:text-gray-800 rounded transition duration-150 ease-in-out">Обработка персональных данных</button></a>
+        </div>
+    </div>
+</div>
+
+
+<!-- Реквизиты модальное окно -->
+<div id="requisitesModal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-50 overflow-y-auto h-full w-full" onclick="closeRequisitesModal(event)">
+    <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white text-center" onclick="event.stopPropagation()">
+        <div class="flex justify-between items-center">
+            <h3 class="text-lg leading-6 font-medium text-gray-900 w-full">Реквизиты</h3>
+            <button onclick="closeRequisitesModal()" class="absolute top-0 right-0 mt-2 mr-2 text-gray-500 hover:text-gray-800">
+                <svg class="h-6 w-6 fill-current" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+        <div class="mt-2 px-7 py-3 text-left">
+            <ul class="list-disc list-inside space-y-1 text-sm">
+                <li>ИП Катюбеев Андрей Сергеевич</li>
+                <li>ИНН 272317856404</li>
+                <li>ОГРНИП 323508100053962</li>
+                <li>Эл. почта для связи: <a href="mailto:sadok-law@yandex.ru" class="text-blue-500 hover:underline">sadok-law@yandex.ru</a></li>
+                <li>Телефон: +7 995 921 1219</li>
+                <li>Адрес: улица Рублёвское Предместье, 4к1, кв. 89, деревня Глухово, городской округ Красногорск, Московская область.</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+function switchTariff(tariff) {
+    const tariffs = ['start', 'standard', 'pro'];
+    tariffs.forEach(t => {
+        const infoElement = document.getElementById(`tariff-${t}`);
+        const btnElement = document.getElementById(`btn-${t}`);
+        if (t === tariff) {
+            infoElement.classList.remove('hidden');
+            btnElement.classList.add('active');
+        } else {
+            infoElement.classList.add('hidden');
+            btnElement.classList.remove('active');
+        }
+    });
+}
+
+// Initialize the modal with the start tariff visible
+switchTariff('start');
+
+</script>
+
+<style>
+.tariff-tab {
+    padding: 4px 10px;
+    border: 2px solid transparent;
+    background-color: transparent;
+    color: #4a5568; /* Dark gray text */
+    border-radius: 30px;
+    transition: all 0.3s;
+}
+
+.tariff-tab:hover, .tariff-tab.active {
+    background-color: #53c5ec; /* Blue background for hover and active */
+    color: white;
+    border-color: #53c5ec;
+}
+
+.tariff-tab:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(43, 108, 176, 0.5);
+}
+
+hr {
+    border: 1;
+    color: black;
+    height: 1px;
+    margin: 20px 0; /* Регулируйте отступы по желанию */
+}
+
+
+@media (max-width: 768px) {
+    .tariff-tab {
+        width: 90%; /* Full width on smaller screens */
+        padding: 3px; /* Less padding */
+    }
+
+}
+
+
+
+</style>

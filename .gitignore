@@ -1,0 +1,14 @@
+myprojectenv/
+*.log
+flask_session/
+*.pyc
+__pycache__/
+*.sock
+*.db
+*.txt
+!requirements.txt
+*.env
+public_key
+.DS_Store
+take_code.py
+*.ttf

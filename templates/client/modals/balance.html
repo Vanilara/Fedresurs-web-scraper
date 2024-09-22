@@ -1,0 +1,52 @@
+<!-- Баланс -->
+<div id="balanceModal" class="fixed inset-0 bg-gray-800 bg-opacity-75 hidden justify-center items-center" onclick="closeModal(event)">
+    <div class="bg-white p-6 rounded-lg shadow-lg max-w-md w-full relative" onclick="event.stopPropagation()">
+        <div class="flex justify-between items-center mb-4">
+            <h2 class="text-2xl text-gray-800 font-semibold">Баланс: {{ user.balance }}₽</h2>
+            <button class="ml-2 px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600" onclick="openHistoryModal()">История оплат</button>
+        </div>
+        <button class="absolute top-2 right-2 text-gray-500 hover:text-gray-700" onclick="document.getElementById('balanceModal').classList.add('hidden'); document.getElementById('balanceModal').classList.remove('flex');">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </button>
+        <div class="mt-4">
+            <form class="flex space-x-2" method="POST" action="/add_balance">
+                <input type="number" name="amount" class="border border-gray-300 rounded p-2 w-full" placeholder="Сумма пополнения" step="500" min="500" required>
+                <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Пополнить</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- История оплат Modal -->
+<div id="historyModal" class="fixed inset-0 bg-gray-800 bg-opacity-75 hidden justify-center items-center" onclick="closeModal(event)">
+    <div class="bg-white p-6 rounded-lg shadow-lg max-w-2xl w-full relative" onclick="event.stopPropagation()">
+        <h2 class="text-2xl mb-4 text-gray-800 font-semibold">История оплат</h2>
+        <table class="min-w-full table-auto border-collapse">
+            <thead class="bg-gray-100">
+                <tr>
+                    <th class="text-left py-2 px-4">Сумма</th>
+                    <th class="text-left py-2 px-4">Время</th>
+                    <th class="text-left py-2 px-4">Карта</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                <tr class="bg-white">
+                    <td class="py-2 px-4">{{ order.amount }}₽</td>
+                    <td class="py-2 px-4">{{ order.time }}</td>
+                    <td class="py-2 px-4">{{ order.card }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <button class="absolute top-2 right-2 text-gray-500 hover:text-gray-700" onclick="document.getElementById('historyModal').classList.add('hidden'); document.getElementById('historyModal').classList.remove('flex');">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </button>
+    </div>
+</div>

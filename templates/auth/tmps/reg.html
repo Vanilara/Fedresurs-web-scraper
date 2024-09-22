@@ -1,0 +1,41 @@
+{% include 'header.html' %}
+<div class="flex items-center justify-center min-h-screen bg-gray-100">
+  <div class="px-8 py-6 mt-4 text-left bg-white shadow-lg">
+    <h3 class="text-2xl font-bold text-center">Регистрация</h3>
+    <div class="mt-2 w-2/3 text-center mx-auto">Зарегистрируйтесь для получения бесплатных 1000р на баланс</div>
+    <form action="/reg_action" method="POST" class="text-center">
+      <div class="mt-4">
+        <div>
+          <label class="block" for="email">Почта</label>
+          <input name="email" type="email"
+            class="w-2/3 px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600">
+        </div>
+        <div class="mt-4 flex justify-center items-center">
+          <input id="userAgreement" name="userAgreement" type="checkbox"
+            class="w-4 h-4 text-blue-600 border rounded focus:ring-blue-500 focus:outline-none" required>
+          <label for="userAgreement" class="ml-2 block text-sm text-gray-900">
+            Я согласен с <a href="/user_accept"
+              target="_blank" class="text-blue-600 hover:underline">Пользовательским соглашением</a> и<br><a href="/pers_data"
+              target="_blank" class="text-blue-600 hover:underline">Обработкой персональных данных</a>
+            </label>
+        </div>
+        {% include 'auth/message.html' %}
+        <div class="flex items-center justify-center mt-4 mb-4">
+          <button type="submit"
+            class="px-6 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50">Создать
+            аккаунт</button>
+        </div>
+      </div>
+    </form>
+    <div class="text-sm mt-4 text-center">
+      <p>Уже есть аккаунт?<a href="/login" class="font-medium text-blue-600 hover:underline"> Войти</a></p>
+    </div>
+    <div class="flex justify-center items-center">
+      <a href="/demo" class="text-blue-600 hover:underline">
+          <h2>Демо</h2>
+      </a>
+  </div>
+  
+  </div>
+</div>
+{% include 'footer.html' %}

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://widget.cloudpayments.ru/bundles/cloudpayments.js"></script>
+</head>
+<body>
+    <script>
+var user_id = {{user_id}};
+var amount = {{amount}};
+var email = '{{email}}';
+var payments = new cp.CloudPayments({
+    language: "ru-RU",
+    email: "",
+    applePaySupport: true,
+    googlePaySupport: true,
+    yandexPaySupport: true,
+    tinkoffInstallmentSupport: true,
+});
+var receipt = {"Items": [//товарные позиции
+                {
+                    "label": "Пополнение баланса",
+                    "price": amount,
+                    "quantity": 1.00, //количество
+                    "amount": amount, //сумма
+                    "vat": 0, //ставка НДС
+                }
+            ],
+            "email": email, //e-mail покупателя, если нужно отправить письмо с чеком
+            "amounts":
+            {
+                "electronic": amount
+            }
+        }
+
+payments.pay("charge", {
+    publicId: '{{cloud_token}}',
+    description: `Пополнение баланса sadok на ${amount}`,
+    amount: amount,
+    currency: "RUB",
+    invoiceId: `${user_id}_${Math.floor(new Date('2024-07-05T00:00:00Z').getTime() / 1000)}`,
+    accountId: user_id,
+    email: "",
+    skin: "classic",
+    requireEmail: false,
+    autoClose: 3,
+    email: email,
+    data: {
+        "CloudPayments": {
+            "CustomerReceipt": receipt, //онлайн-чек
+    }
+    }
+}, {
+        onSuccess: function (options) { 
+            window.location.href = "/personal";
+        }
+    }
+)
+
+</script>
+</body>
+</html>

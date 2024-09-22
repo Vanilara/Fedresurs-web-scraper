@@ -1,0 +1,53 @@
+<!-- Buy message -->
+<div id="messageModal" class="fixed inset-0 bg-gray-800 bg-opacity-75 hidden justify-center items-center" onclick="closeMessageModal(event)">
+    <div class="bg-white p-6 rounded-lg shadow-lg max-w-md w-full relative" onclick="event.stopPropagation()">
+        <button class="absolute top-2 right-2 text-gray-500 hover:text-gray-700" onclick="document.getElementById('messageModal').classList.add('hidden'); document.getElementById('messageModal').classList.remove('flex');">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </button>
+        <h2 class="text-2xl mb-4 text-gray-800 font-semibold">Подтвердите раскрытие сообщения за 150р</h2>
+        <form id="buyMessageForm" action="/buy_message" method="POST">
+            <input type="hidden" name="message_id" id="message_modal_id">
+            <div class="flex justify-end space-x-2">
+                <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Подтвердить</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- NoteEdit -->
+<div id="noteEditorModal" class="fixed inset-0 bg-gray-800 bg-opacity-75 hidden justify-center items-center" onclick="closeNoteEditor(event)">
+    <div class="bg-white p-6 rounded-lg shadow-lg max-w-md w-full relative" onclick="event.stopPropagation()">
+        <button class="absolute top-2 right-2 text-gray-500 hover:text-gray-700" onclick="hideNoteEditor()">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </button>
+        <h2 class="text-lg mb-4 text-gray-800 font-semibold">Составьте заметку</h2>
+        <form action="/set_note" method="POST">
+            <textarea name="note" class="w-full p-2 text-gray-700 border rounded-lg focus:outline-none" rows="4"></textarea>
+            <input type="hidden" name="message_id" id="hiddenMessageId">
+            <div class="flex justify-end space-x-2 mt-4">
+                <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Сохранить</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- NoteWatch -->
+<div id="fullNoteModal" class="fixed inset-0 bg-gray-800 bg-opacity-75 hidden flex justify-center items-center">
+    <div class="bg-white p-6 rounded-lg shadow-lg max-w-md w-full md:max-w-lg relative">
+        <p id="modalNoteContent" class="text-gray-700 text-lg"></p>
+    </div>
+</div>
+
+
+
+<script>
+    function openModal(messageId) {
+        document.getElementById('messageId').value = messageId;
+        document.getElementById('noteModal').classList.remove('hidden');
+    }
+    </script>
+    

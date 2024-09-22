@@ -1,0 +1,126 @@
+{% include 'header.html' %}
+{% include 'client/extra_header.html' %}
+
+<div class="container mx-auto px-2 sm:px-4 mt-5">
+    <div class="flex flex-row justify-between items-center mb-4 space-x-3">
+        <form action="/logout" method="POST" class="flex-1 md:flex-none">
+            <button class="w-full md:w-auto px-2 sm:px-4 py-1 sm:py-2 md:px-4 md:py-2 border border-red-500 text-red-500 hover:text-white hover:bg-red-500 rounded transition duration-150 ease-in-out">Выйти</button>
+        </form>
+        <div class="flex-1 justify-center items-center date-updates">
+            <p class="text-gray-600">Обновлено {{ date_updates }} в 12:00 мск</p>
+        </div>
+        <button class="flex-1 md:flex-none md:ml-4 px-2 sm:px-4 py-1 sm:py-2 md:px-4 md:py-2 border border-green-500 text-green-500 hover:text-white hover:bg-green-500 rounded transition duration-150 ease-in-out" onclick="openTariffModal()">Тариф СТАРТ</button>
+        <button class="flex-1 md:flex-none md:ml-4 px-2 sm:px-4 py-1 sm:py-2 md:px-4 md:py-2 border border-blue-500 text-blue-500 hover:text-white hover:bg-blue-500 rounded transition duration-150 ease-in-out" onclick="openBalanceModal()">Баланс: {{ user.balance }}</button>
+    </div>
+    <div class="text-center md:hidden">
+        <p class="text-gray-600">Обновлено {{ date_updates }} в 12:00 мск</p>
+    </div>
+
+
+    <div class="bg-gray-50 p-5 rounded-lg shadow-lg">
+        <div class="tabs border-b border-gray-200 flex flex-col md:flex-row justify-between items-center md:items-end">
+            <div class="mb-4 md:mb-0">
+                <button class="tab-link active px-4 py-2 text-gray-700 border-b-2 border-blue-500" data-tab="new">Новые</button>
+                <button class="tab-link px-4 py-2 text-gray-700 border-b-2" data-tab="purchased">Раскрытые</button>
+            </div>
+            <div class="flex flex-col sm:flex-row gap-4 md:gap-2 mt-4 md:mt-0">
+                <div>
+                    <select id="regionFilter" class="form-select">
+                        <option value="">Все регионы</option>
+                        {% for region in regions %}
+                        <option value="{{ region.id }}">{{ region.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div>
+                    <select id="typeFilter" class="form-select">
+                        <option value="">Юрлица/ИП/все</option>
+                        <option value="ooo">Юрлица</option>
+                        <option value="ip">ИП</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div id="new" class="tab-content active pt-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {% for message in messages.new %}
+                    <div class="bg-gray-200 p-4 rounded-lg shadow cursor-pointer flex justify-between items-center" data-id="{{ message.id }}" data-region="{{ message.region_id }}" data-comptype="{{message.company_type}}">
+                        <div>
+                            <p class="text-gray-700 text-sm">Время: {{ message.time }}</p>
+                            <p class="text-gray-700 text-sm">Регион: {{ message.region }}</p>
+                            <p class="text-gray-700 text-sm">Тип компании: {{ message.company_type }}</p>
+                        </div>
+                        <button class="ml-1 px-3 py-1 border border-blue-500 text-blue-500 hover:text-white hover:bg-blue-500 rounded">
+                            Открыть
+                        </button>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div id="purchased" class="tab-content hidden pt-4">
+            <div class="overflow-x-auto">
+                <table class="min-w-full table-auto border-collapse border border-gray-200" id="table_main">
+                    <thead class="bg-gray-100">
+                        <tr>
+                            <th class="w-1/6 border-b border-gray-200 text-left py-1 px-2 cursor-pointer">Тип компании</th>
+                            <th class="w-1/5 border-b border-gray-200 text-left py-1 px-2 cursor-pointer">Название</th>
+                            <th class="w-1/5 border-b border-gray-200 text-left py-1 px-2 cursor-pointer">Регион</th>
+                            <th class="w-1/6 border-b border-gray-200 text-left py-1 px-2 cursor-pointer">Время публикации</th>
+                            <th class="w-1/6 border-b border-gray-200 text-left py-1 px-2 cursor-pointer">ИНН</th>
+                            <th class="w-1/6 border-b border-gray-200 text-left py-1 px-2 cursor-pointer">Время раскрытия</th>
+                            <th class="w-1/5 border-b border-gray-200 text-left py-1 px-2 cursor-pointer">Заметки</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for message in messages.bought %}
+                        <tr class="bg-white border-b border-gray-200" data-region="{{ message.region_id }}" data-comptype="{{message.company_type}}">
+                            <td class="w-1/6 py-1 px-2">{{ message.comp_type }}</td>
+                            <td class="w-1/5 py-1 px-2">
+                                <a href="{{ message.link }}" target="_blank" class="text-blue-500 hover:text-blue-600">{{ message.name }}</a>
+                            </td>
+                            <td class="w-1/5 py-1 px-2">{{ message.region }}</td>
+                            <td class="w-1/6 py-1 px-2">{{ message.time }}</td>
+                            <td class="w-1/6 py-1 px-2">{{ message.inn }}</td>
+                            <td class="w-1/6 py-1 px-2">{{ message.time_bought }}</td>
+                            <td class="w-1/5 py-1 px-2 flex items-center">
+                                <span class="text-blue-500 hover:text-blue-600 cursor-pointer flex-grow" onclick="toggleFullNoteModal(this)" data-note="{{ message.note }}">
+                                    {{ message.note | truncate(20) }}
+                                </span>
+                                <button onclick="openNoteEditor({{ message.id }})" class="ml-2 text-blue-500 hover:text-blue-600">
+                                    <i class="fas fa-pen"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+{% include 'client/modals/balance.html' %}
+{% include 'client/modals/actions.html' %}
+{% include 'client/modals/plans.html' %}
+{% if toastr.error != '' %}
+  <script>
+    toastr.error('{{toastr.error}}',{
+            timeOut: 2000,
+            closeButton: true,
+            progressBar: true
+        });
+  </script>
+{% elif toastr.success != '' %}
+<script>
+  toastr.success('{{toastr.success}}', {
+          timeOut: 2000,
+          closeButton: true,
+          progressBar: true
+      });
+</script>
+{% endif %}
+<script type="text/javascript" src="{{ url_for('static', filename='js/initialize.js') }}"></script>
+
+
+{% include 'footer.html' %}
