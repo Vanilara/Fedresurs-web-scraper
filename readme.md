@@ -23,7 +23,7 @@ python3 remake_database.py
 python3 -m flask run --debug --port=5001
 ```
 
-Add the following line to the crontab file to run ```parse.py``` hourly:
+Add the following line to the crontab file to run `parse.py` hourly:
 
 ```bash
 0 * * * * python3 /path/to/sadok/parse.py
@@ -34,26 +34,28 @@ Before registration, users will see a demo layout of the interface. After loggin
 
 ## Configuration
 
-Before running the project, you need to set up the ```.env``` file. Example configuration file:
+Before running the project, you need to set up the `.env` file. Example configuration file:
 
 # .env
-DEBUG_MODE = True/False
-SERVER_URL = For debug mode = False(https://example.com)
-EMAIL_ADDR = Gmail address to send verification codes
-EMAIL_PASS = Gmail app password
-FLASK_ADMIN_KEY = Key to access /admin
-FLASK_SECRET_KEY = Flask session secret key
-FAILS_BOT_TOKEN = Bot token for Telegram notifications about failures
-FAILS_GROUP = Group id for Telegram notifications about failures
-CLOUD_TOKEN = CloudPayments account ID
+```
+DEBUG_MODE=True/False
+SERVER_URL=For debug mode when DEBUG_MODE=False (https://example.com)
+EMAIL_ADDR=Gmail address to send verification codes
+EMAIL_PASS=Gmail app password
+FLASK_ADMIN_KEY=Key to access /admin
+FLASK_SECRET_KEY=Flask session secret key
+FAILS_BOT_TOKEN=Bot token for Telegram notifications about failures
+FAILS_GROUP=Group ID for Telegram notifications about failures
+CLOUD_TOKEN=CloudPayments account ID
+```
 
 ## Technologies
-• Python 3.10
-• Flask 3.x
-• Aiogram 4.x
-• Aiohttp
-• Pandas
-• Openpyxl
-• Numpy
-• Python-dotenv
-• Gunicorn
+* Python 3.10
+* Flask 3.x
+* Aiogram 4.x
+* Aiohttp
+* Pandas
+* Openpyxl
+* Numpy
+* Python-dotenv
+* Gunicorn
