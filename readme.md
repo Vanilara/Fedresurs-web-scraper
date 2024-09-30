@@ -1,4 +1,4 @@
-# Fedresurs-web-parser
+# Fedresurs-web-scraper
 
 The project consists of two components:
 1. An hourly parser on the fedresurs.ru website to detect new bankruptcy announcements for individual entrepreneurs and companies.
