@@ -1,4 +1,4 @@
-# Sadok
+# Fedresurs-web-parser
 
 The project consists of two components:
 1. An hourly parser on the fedresurs.ru website to detect new bankruptcy announcements for individual entrepreneurs and companies.
@@ -16,8 +16,8 @@ The project consists of two components:
 To clone the repository and install dependencies, run the following commands:
 
 ```bash
-git clone https://github.com/Vanilara/Sadok.git
-cd sadok
+git clone https://github.com/Vanilara/Fedresurs-web-parser.git
+cd Fedresurs-web-parser
 pip install -r requirements.txt
 python3 remake_database.py
 python3 -m flask run --debug --port=5001
@@ -26,7 +26,7 @@ python3 -m flask run --debug --port=5001
 Add the following line to the crontab file to run `parse.py` hourly:
 
 ```bash
-0 * * * * python3 /path/to/sadok/parse.py
+0 * * * * python3 /path/to/Fedresurs-web-parser/parse.py
 ```
 
 ## Usage
